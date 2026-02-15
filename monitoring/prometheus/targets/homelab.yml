@@ -1,0 +1,7 @@
+- targets:
+  - 192.168.50.254:9100   # pve1
+  - 192.168.50.10:9100    # pve2
+  - 192.168.50.213:9100   # pve3
+  labels:
+    role: "proxmox-host"
+    env: "homelab"

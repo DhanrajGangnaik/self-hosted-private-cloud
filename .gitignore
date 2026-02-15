@@ -1,19 +1,55 @@
-﻿# secrets
+﻿# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets / local overrides
+*.env
+*.env.*
 *.key
 *.pem
-*.p12
 *.pfx
-*.env
-.env*
+*.p12
+*.crt
+*.cer
+*.der
+*.ovpn
+*.conf.local
 secrets/
-**/secrets/
+private/
+**/private/
+**/*secret*
 **/*token*
 **/*password*
 
-# logs
+# Logs / temp
 *.log
-*.dump
+tmp/
+temp/
+*.tmp
+*.swp
 
-# OS
-.DS_Store
-Thumbs.db
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Node / Python
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Terraform / IaC
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Prometheus data (never commit)
+**/data/
+**/wal/

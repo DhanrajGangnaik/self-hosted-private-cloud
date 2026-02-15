@@ -1,0 +1,29 @@
+groups:
+- name: homelab-basic
+  rules:
+  - alert: InstanceDown
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Target down ({{ $labels.instance }})"
+      description: "Prometheus cannot scrape {{ $labels.instance }} for >2m."
+
+  - alert: HostHighCPU
+    expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 90
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High CPU ({{ $labels.instance }})"
+      description: "CPU usage > 90% for 5m."
+
+  - alert: HostLowDiskSpace
+    expr: (node_filesystem_avail_bytes{fstype!~"tmpfs|overlay"} / node_filesystem_size_bytes{fstype!~"tmpfs|overlay"}) < 0.10
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Low disk space ({{ $labels.instance }})"
+      description: "Filesystem free < 10% for 10m."
