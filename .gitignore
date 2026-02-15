@@ -1,0 +1,19 @@
+﻿# secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.env
+.env*
+secrets/
+**/secrets/
+**/*token*
+**/*password*
+
+# logs
+*.log
+*.dump
+
+# OS
+.DS_Store
+Thumbs.db
