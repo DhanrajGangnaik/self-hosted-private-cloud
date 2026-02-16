@@ -19,3 +19,5 @@
 - Monitoring -> node_exporters (9100)
 
 Document exact ports + switch config separately as needed.
+
+![Homelab Diagram](Networking.png)

@@ -6,6 +6,8 @@ A “self hosted private cloud” built on with:
 - Remote access via Tailscale (subnet routing + optional MagicDNS)
 - Observability with Prometheus + Grafana (and exporters)
 
+![Diagram](Base Infra.jpg)
+
 ## High-level architecture
 - **Compute**: Proxmox cluster (pve1, pve2, pve3)
 - **Edge**: `edge-proxy` (NGINX reverse proxy + optional TLS termination)
