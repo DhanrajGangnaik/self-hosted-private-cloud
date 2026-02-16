@@ -1,6 +1,6 @@
 # self-hosted-private-cloud
 
-A homelab “private cloud” built on Proxmox with:
+A “self hosted private cloud” built on with:
 - Core platform services (DNS, reverse proxy, dashboard, monitoring)
 - App services (Nextcloud, password manager, Portainer, uptime monitoring)
 - Remote access via Tailscale (subnet routing + optional MagicDNS)
