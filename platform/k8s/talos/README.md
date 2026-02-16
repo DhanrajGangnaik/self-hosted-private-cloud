@@ -9,4 +9,3 @@ Store Talos config notes here:
 Tip:
 Do NOT commit kubeconfig or machine secrets.
 Commit only sanitized configs or `*.example.yaml`.
-ls
