@@ -1,42 +1,164 @@
-# self-hosted-private-cloud
+# 🚀 Self-Hosted Private Cloud
 
-A “self hosted private cloud” built on with:
-- Core platform services (DNS, reverse proxy, dashboard, monitoring)
-- App services (Nextcloud, password manager, Portainer, uptime monitoring)
-- Remote access via Tailscale (subnet routing + optional MagicDNS)
-- Observability with Prometheus + Grafana (and exporters)
+A **production-style, self-hosted private cloud platform** built on a Proxmox cluster, designed to replicate real-world cloud architecture patterns including **network segmentation, observability, GitOps evolution, and secure remote access**.
 
-![Diagram](Base Infra.jpg)
+---
 
-## High-level architecture
-- **Compute**: Proxmox cluster (pve1, pve2, pve3)
-- **Edge**: `edge-proxy` (NGINX reverse proxy + optional TLS termination)
-- **DNS**: `dns-server` (authoritative + local zone, e.g., `homelab.internal`)
-- **Dashboard**: internal landing page for service links
-- **Monitoring**: Prometheus + Grafana on `monitoring` VM
-- **Remote access**: Tailscale subnet router on `edge-proxy`
+## 🧠 Architecture Overview
 
-## Repository layout
-- `docs/` — human-readable design + runbooks
-- `infrastructure/` — networking, Proxmox, Tailscale specifics
-- `inventory/` — IP plan + host list + DNS examples (sanitized)
-- `monitoring/` — Prometheus/Grafana/exporters config
-- `platform/` — platform-layer configs (DNS records, edge proxy, k8s placeholder)
-- `services/` — per-service notes/compose placeholders
-- `scripts/` — PowerShell helpers (backup, status, sanitize)
+### High-Level Architecture
+![High-Level](docs/diagrams/01_high_level_architecture.png)
 
-## Quick start (documentation-first)
-1. Fill `inventory/ip-plan.example.md` with your final IP plan.
-2. Fill `inventory/hosts.example.yml` with hosts/services inventory.
-3. Configure DNS zone records using `inventory/dns-records.example.md`.
-4. Follow `docs/network.md` and `docs/services.md` to deploy services.
-5. Bring up monitoring per `docs/monitoring.md`.
-6. Enable remote access per `docs/tailscale.md`.
+### Access & DNS Flow
+![Access](docs/diagrams/02_access_and_dns_flow.png)
 
-## Security notes
-- Never commit real passwords/tokens/keys.
-- Keep internal services on LAN only; publish externally only via VPN.
-- Prefer least-privilege firewall rules (UDM Pro + host firewalls where needed).
+### Internal Services Layout
+![Services](docs/diagrams/03_internal_services_layout.png)
 
-## Status
-Work in progress. This repo captures the build and will evolve as more services are added.
+### Monitoring Stack
+![Monitoring](docs/diagrams/04_monitoring_stack.png)
+
+### Platform Evolution (GitOps + Kubernetes + Hybrid Cloud)
+![Evolution](docs/diagrams/05_platform_evolution.png)
+
+---
+
+## 🏗️ Core Architecture
+
+### Compute Layer
+- **Platform**: Proxmox VE cluster (`pve1`, `pve2`, `pve3`)
+- Workloads distributed across nodes (VMs + LXCs)
+- Designed for **high availability and Kubernetes readiness**
+
+### Networking & Access
+- **Gateway**: UDM Pro (VLANs, firewall, routing)
+- **Internal DNS**: Technitium (`homelab.internal`)
+- **Edge Proxy**: NGINX (reverse proxy, routing, TLS termination)
+- **Remote Access**: Tailscale (secure VPN + subnet routing)
+
+### Platform Services
+- Central reverse proxy for all services
+- Internal dashboard for service discovery
+- DNS-based internal routing (`*.homelab.internal`)
+
+### Observability Stack
+- **Prometheus** → metrics collection
+- **Grafana** → dashboards & visualization
+- Exporters:
+  - Node Exporter
+  - Proxmox metrics exporter
+
+### Application Services
+- Nextcloud (private cloud storage)
+- Portainer (container management)
+- Uptime Kuma (service monitoring)
+- Dashboard (internal landing UI)
+
+---
+
+## ⚙️ Platform Evolution (Roadmap)
+
+The platform is designed to evolve into a **cloud-native, GitOps-driven system**:
+
+- GitOps pipeline with **GitLab + Argo CD**
+- Kubernetes cluster (Talos-based HA control plane)
+- Containerized microservices deployment
+- AI/Data Layer:
+  - Ollama (LLM inference)
+  - MLflow (experiment tracking)
+  - MinIO (object storage)
+- Hybrid cloud extension:
+  - AWS EKS failover
+  - Load-based traffic routing
+
+---
+
+## 📂 Repository Structure
+
+```text
+docs/                → Architecture diagrams, documentation, runbooks
+infrastructure/      → Networking, Proxmox, Tailscale configs
+inventory/           → IP plan, DNS records, host definitions
+monitoring/          → Prometheus, Grafana, exporters
+platform/            → DNS, edge proxy, Kubernetes configs
+services/            → Application-level services (Nextcloud, etc.)
+````
+
+---
+
+## 🚀 Deployment Approach (Documentation-First)
+
+This repository follows a **structured infrastructure-first workflow**:
+
+1. Define infrastructure:
+
+   * `inventory/ip-plan.example.md`
+   * `inventory/hosts.example.yml`
+
+2. Configure DNS:
+
+   * `inventory/dns-records.example.md`
+
+3. Set up networking:
+
+   * VLANs + firewall rules (`infrastructure/networking/`)
+
+4. Deploy core platform services:
+
+   * DNS
+   * Reverse proxy
+   * Dashboard
+
+5. Enable observability:
+
+   * Prometheus + Grafana (`monitoring/`)
+
+6. Configure remote access:
+
+   * Tailscale subnet router
+
+---
+
+## 🔐 Security Model
+
+* **Zero Trust approach** (VPN-first access)
+* Internal services are **not publicly exposed**
+* Network segmentation using VLANs
+* Least-privilege firewall policies
+* No secrets committed (sanitized configs only)
+
+---
+
+## 📊 Design Principles
+
+* Infrastructure as documentation
+* Self-hosted over SaaS
+* Observability-first architecture
+* Kubernetes-ready design
+* Security by default
+
+---
+
+## 📌 Status
+
+🚧 Active development
+
+Planned improvements:
+
+* Full Kubernetes deployment
+* GitOps CI/CD pipelines
+* Hybrid cloud failover (AWS integration)
+* Advanced monitoring + alerting
+
+---
+
+## 🎯 Purpose
+
+This project demonstrates:
+
+* Real-world **cloud architecture design**
+* Hands-on **DevOps / SRE practices**
+* **Self-hosted platform engineering**
+* End-to-end system design:
+
+
